@@ -11,7 +11,7 @@ pipeline
                 {
                     try
                     {
-                        git 'https://github.com/selenium-saikrishna/maven.git'
+                        git 'https://github.com/sylvain-atanga/Maven.git'
                     }
                     catch(Exception e1)
                     {
