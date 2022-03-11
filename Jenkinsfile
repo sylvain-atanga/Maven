@@ -47,7 +47,7 @@ pipeline
                 {
                     try
                     {
-                        deploy adapters: [tomcat9(credentialsId: '5e216110-9656-45c8-bc75-bec87ddd167d', path: '', url: 'http://172.31.95.216:8080')], contextPath: 'testapp1', war: '**/*.war'
+                        deploy adapters: [tomcat9(credentialsId: '5e216110-9656-45c8-bc75-bec87ddd167d', path: '', url: 'http://172.31.84.142:8080')], contextPath: 'testapp1', war: '**/*.war'
                     }
                     catch(Exception e1)
                     {
@@ -89,7 +89,7 @@ pipeline
                     }
                     catch(Exception e1)
                     {
-                        deploy adapters: [tomcat9(credentialsId: '5e216110-9656-45c8-bc75-bec87ddd167d', path: '', url: 'http://172.31.90.31:8080')], contextPath: 'prodapp1', war: '**/*.war'
+                        deploy adapters: [tomcat9(credentialsId: '5e216110-9656-45c8-bc75-bec87ddd167d', path: '', url: 'http://172.31.94.71:8080')], contextPath: 'prodapp1', war: '**/*.war'
                         exit(1)
                     }
                 }
