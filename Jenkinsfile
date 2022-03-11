@@ -1,21 +1,21 @@
-pipeline
+pipeline 
 {
     agent any
-    stages
+    stages 
     {
         stage('ContinuousDownload') 
         {
-            steps
+            steps 
             {
                 script
                 {
                     try
                     {
-                        git 'https://github.com/sylvain-atanga/Maven.git'
+                        git 'https://github.com/sylvain-atanga/Maven.git'    
                     }
                     catch(Exception e1)
                     {
-                        mail bcc: '', body: 'Jenkins is unable to download the code from github', cc: '', from: '', replyTo: '', subject: 'Download failed', to: 'git.team@gmail.com'
+                        mail bcc: '', body: 'Jenkins failed to download code from github repository', cc: '', from: '', replyTo: '', subject: 'Download failed', to: 'git.team@hbc.org'
                         exit(1)
                     }
                 }
@@ -23,17 +23,17 @@ pipeline
         }
         stage('ContinuousBuild') 
         {
-            steps
+            steps 
             {
                 script
                 {
                     try
                     {
-                        sh 'mvn package'
+                        sh 'mvn package'    
                     }
                     catch(Exception e1)
                     {
-                        mail bcc: '', body: 'Jenkins is unable to build artifact from code', cc: '', from: '', replyTo: '', subject: 'Build failed', to: 'development.team@gmail.com'
+                        mail bcc: '', body: 'Jenkins failed to build artifact from code', cc: '', from: '', replyTo: '', subject: 'Build failed', to: 'dev.team@hbc.org'
                         exit(1)
                     }
                 }
@@ -41,17 +41,17 @@ pipeline
         }
         stage('ContinuousDeployment') 
         {
-            steps
+            steps 
             {
                 script
                 {
                     try
                     {
-                        deploy adapters: [tomcat9(credentialsId: '5e216110-9656-45c8-bc75-bec87ddd167d', path: '', url: 'http://172.31.84.142:8080')], contextPath: 'testapp1', war: '**/*.war'
+                        deploy adapters: [tomcat9(credentialsId: 'c0646f3e-9314-475b-9661-e31a0d23a6ca', path: '', url: 'http://172.31.86.88:8080')], contextPath: 'testapp', war: '**/*.war'   
                     }
                     catch(Exception e1)
                     {
-                        mail bcc: '', body: 'Jenkins is unable to deploy artifact to Tomcat QA server', cc: '', from: '', replyTo: '', subject: 'Deploment failed', to: 'middleware.team@gmail.com'
+                        mail bcc: '', body: 'Jenkins failed to deploy artifact to QA environment', cc: '', from: '', replyTo: '', subject: 'Build failed', to: 'midleware.team@hbc.org'
                         exit(1)
                     }
                 }
@@ -59,18 +59,18 @@ pipeline
         }
         stage('ContinuousTesting') 
         {
-            steps
+            steps 
             {
                 script
                 {
                     try
                     {
-                        git 'https://github.com/selenium-saikrishna/FunctionalTesting.git'
-                        sh 'java -jar /var/lib/jenkins/workspace/DeclarativePipelineEmailEveryStep/testing.jar'
+                        git 'https://github.com/sylvain-atanga/FunctionalTesting.git'
+                        sh 'java -jar /var/lib/jenkins/workspace/DeclarativePipeline/testing.jar'
                     }
                     catch(Exception e1)
                     {
-                        mail bcc: '', body: 'Selenium test scripts are failing', cc: '', from: '', replyTo: '', subject: 'Testing failed', to: 'testing.team@gmail.com'
+                        mail bcc: '', body: 'Jenkins shows fail after executing selenium scripts', cc: '', from: '', replyTo: '', subject: 'testing failed', to: 'testing.team@hbc.org'
                         exit(1)
                     }
                 }
@@ -78,18 +78,17 @@ pipeline
         }
         stage('ContinuousDelivery') 
         {
-            steps
+            steps 
             {
                 script
                 {
                     try
                     {
-                        git 'https://github.com/selenium-saikrishna/FunctionalTesting.git'
-                        sh 'java -jar /var/lib/jenkins/workspace/DeclarativePipelineEmailEveryStep/testing.jar'
+                        deploy adapters: [tomcat9(credentialsId: 'c0646f3e-9314-475b-9661-e31a0d23a6ca', path: '', url: 'http://172.31.90.145:8080')], contextPath: 'prodapp', war: '**/*.war'
                     }
                     catch(Exception e1)
                     {
-                        deploy adapters: [tomcat9(credentialsId: '5e216110-9656-45c8-bc75-bec87ddd167d', path: '', url: 'http://172.31.94.71:8080')], contextPath: 'prodapp1', war: '**/*.war'
+                        mail bcc: '', body: 'Jenkins fail to deliver app to production environment', cc: '', from: '', replyTo: '', subject: 'delivery failed', to: 'delivery.team@hbc.org'
                         exit(1)
                     }
                 }
