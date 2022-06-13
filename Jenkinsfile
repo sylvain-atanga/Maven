@@ -4,7 +4,7 @@ pipeline
     
     stages
     {
-        stage('Continuous Download')
+        stage('Continuous Download_Master')
         {
             steps
             {
@@ -22,7 +22,7 @@ pipeline
                 }
             }
         }
-        stage('Continuous Build')
+        stage('Continuous Build_Master')
         {
             steps
             {
@@ -40,7 +40,7 @@ pipeline
                 }
             }
         }
-         stage('Continuous Deployment')
+         stage('Continuous Deployment_Master')
          {
              steps
              {
@@ -58,7 +58,7 @@ pipeline
                 }
              }
          }
-        stage('Continuous Testing')
+        stage('Continuous Testing_Master')
         {
             steps
             {
@@ -77,7 +77,7 @@ pipeline
                 }
             }
         }
-        stage('Continuous Delivery')
+        stage('Continuous Delivery_Master')
         {
             steps
             {
