@@ -67,7 +67,7 @@ pipeline
                     try
                     {
                         git 'https://github.com/sylvain-atanga/FunctionalTesting.git'
-                        sh 'java -jar /var/lib/jenkins/workspace/exception-Hadling/testing.jar'
+                        sh 'java -jar /var/lib/jenkins/workspace/MB-PL_master/testing.jar'
                     }
                    catch(Exception e4)
                     {
